@@ -13,7 +13,6 @@ import com.mdwc.attendancetracker.fragments.AnalyticsFragment
 import com.mdwc.attendancetracker.fragments.HomeFragment
 import com.mdwc.attendancetracker.fragments.ProfileFragment
 import com.mdwc.attendancetracker.fragments.UpdatesFragment
-import io.paperdb.Paper
 
 class LandingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLandingBinding
@@ -26,6 +25,7 @@ class LandingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.bottomNavigationView.setBackground(null)
+
         binding.addSubjectFAB.setOnClickListener {
             val intent = Intent(this, AddSubjectActivity::class.java)
             startActivity(intent)

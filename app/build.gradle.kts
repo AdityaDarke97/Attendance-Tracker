@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -62,6 +63,9 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
 
     //external
-    implementation("io.github.pilgr:paperdb:2.7.2")
+    val roomVersion = "3.0.3"
+
+    implementation("androidx.room3:room3-runtime:$roomVersion")
+    ksp("androidx.room3:room3-compiler:$roomVersion")
 
 }
