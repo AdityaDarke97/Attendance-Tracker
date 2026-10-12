@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mdwc.attendancetracker.R
 import com.mdwc.attendancetracker.adapters.SubjectAdapter
 import com.mdwc.attendancetracker.databinding.FragmentHomeBinding
 import com.mdwc.attendancetracker.models.Subject

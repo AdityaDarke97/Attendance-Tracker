@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.mdwc.attendancetracker"
-        minSdk = 24
+        minSdk = 27
         targetSdk = 37
         versionCode = 1
         versionName = "1.0"

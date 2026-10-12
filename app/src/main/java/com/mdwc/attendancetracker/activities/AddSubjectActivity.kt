@@ -7,6 +7,7 @@ import com.mdwc.attendancetracker.databinding.ActivityAddSubjectBinding
 import com.mdwc.attendancetracker.models.Subject
 import io.paperdb.Paper
 
+
 class AddSubjectActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddSubjectBinding

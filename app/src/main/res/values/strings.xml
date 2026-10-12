@@ -51,4 +51,6 @@
     <string name="profile">Profile</string>
     <string name="welcome_string">Hey, $UserName</string>
     <string name="subjects">Subjects:</string>
+    <string name="month_c">October 2026</string>
+    <string name="subject_name">DAA</string>
 </resources>

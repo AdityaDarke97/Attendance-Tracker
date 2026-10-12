@@ -15,7 +15,7 @@
         android:fontFamily="@font/poppins_light"
         android:text="2"
         android:textColor="#fff"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +28,7 @@
         android:fontFamily="@font/poppins_light"
         android:text="Discrete Structure"
         android:textColor="#fff"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/idx"
         app:layout_constraintTop_toTopOf="parent" />
