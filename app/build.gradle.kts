@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.sqlite.bundled)
     implementation(libs.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
