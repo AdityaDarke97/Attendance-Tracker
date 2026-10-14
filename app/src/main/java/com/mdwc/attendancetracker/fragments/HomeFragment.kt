@@ -1,5 +1,6 @@
 package com.mdwc.attendancetracker.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mdwc.attendancetracker.activities.CalendarActivity
 import com.mdwc.attendancetracker.adapters.SubjectAdapter
 import com.mdwc.attendancetracker.databinding.FragmentHomeBinding
 import com.mdwc.attendancetracker.models.HomeViewModel
+import com.mdwc.attendancetracker.models.SubjectWithStats
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -36,7 +39,11 @@ class HomeFragment : Fragment() {
         val binding = FragmentHomeBinding.bind(view)
 
         val adapter = SubjectAdapter { subject ->
-            // TODO: navigate to the calendar, passing subject.id
+            val intent = Intent(requireContext(), CalendarActivity::class.java).apply {
+                putExtra("subjectId", subject.id)
+                putExtra("subjectName", subject.name)
+            }
+            startActivity(intent)
         }
         binding.subjectsRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.subjectsRecycler.adapter = adapter
