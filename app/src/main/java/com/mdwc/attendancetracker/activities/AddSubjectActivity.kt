@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.mdwc.attendancetracker.databinding.ActivityAddSubjectBinding
 import com.mdwc.attendancetracker.models.HomeViewModel
-import com.mdwc.attendancetracker.models.SubjectAttendance
 
 
 class AddSubjectActivity : AppCompatActivity() {
@@ -19,9 +18,9 @@ class AddSubjectActivity : AppCompatActivity() {
         binding = ActivityAddSubjectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mHomeViewModel = ViewModelProvider(this).get(HomeViewModel::class)
+        mHomeViewModel = ViewModelProvider(this)[HomeViewModel::class]
         binding.submitButton.setOnClickListener {
-            insertData();
+            insertData()
         }
     }
 
