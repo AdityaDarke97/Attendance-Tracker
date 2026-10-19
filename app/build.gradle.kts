@@ -70,5 +70,6 @@ dependencies {
 
     implementation("androidx.room3:room3-runtime:$roomVersion")
     ksp("androidx.room3:room3-compiler:$roomVersion")
+    implementation("com.kizitonwose.calendar:view:2.10.1")
 
 }
