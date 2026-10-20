@@ -1,17 +1,17 @@
 package com.mdwc.attendancetracker.activities
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.mdwc.attendancetracker.R
 import com.mdwc.attendancetracker.databinding.ActivityCalendarBinding
-import com.mdwc.attendancetracker.databinding.ActivityLandingBinding
-import com.mdwc.attendancetracker.databinding.FragmentHomeBinding
+import com.mdwc.attendancetracker.models.CalendarViewModel
 
 class CalendarActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCalendarBinding
+    private val viewModel: CalendarViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,7 @@ class CalendarActivity : AppCompatActivity() {
         val subjectName = intent.getStringExtra("subjectName")
 
         if (subjectId == -1L) {
-            finish()   // opened without an ID, so there's nothing to show
+            finish()
             return
         }
 
@@ -33,6 +33,5 @@ class CalendarActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
     }
 }
