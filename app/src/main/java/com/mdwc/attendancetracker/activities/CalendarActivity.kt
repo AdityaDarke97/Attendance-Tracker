@@ -2,12 +2,15 @@ package com.mdwc.attendancetracker.activities
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.children
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.DayPosition
+import com.kizitonwose.calendar.core.daysOfWeek
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.mdwc.attendancetracker.R
@@ -16,6 +19,9 @@ import com.mdwc.attendancetracker.helpers.DayViewContainer
 import com.mdwc.attendancetracker.models.Attendance
 import com.mdwc.attendancetracker.models.CalendarViewModel
 import java.time.YearMonth
+import java.time.format.TextStyle
+import java.util.Locale
+import kotlin.sequences.forEachIndexed
 
 class CalendarActivity : AppCompatActivity() {
 
@@ -28,13 +34,14 @@ class CalendarActivity : AppCompatActivity() {
         binding = ActivityCalendarBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val subjectId = intent.getLongExtra("subjectId",-1L)
+        val subjectId = intent.getLongExtra("subjectId", -1L)
         val subjectName = intent.getStringExtra("subjectName")
 
         if (subjectId == -1L) {
             finish()
             return
         }
+
 
         binding.heyWelcomeTv.setText(subjectName)
 
@@ -72,10 +79,16 @@ class CalendarActivity : AppCompatActivity() {
         }
 
         val currentMonth = YearMonth.now()
+        val firstDayOfWeek = firstDayOfWeekFromLocale()
+
+        binding.weekdaysRow.children.forEachIndexed { i, view ->
+            (view as TextView).text = daysOfWeek(firstDayOfWeek)[i]
+                .getDisplayName(TextStyle.SHORT, Locale.getDefault())
+        }
         binding.calendarView.setup(
             currentMonth.minusMonths(12),
             currentMonth.plusMonths(1),
-            firstDayOfWeekFromLocale()
+            firstDayOfWeek
         )
         binding.calendarView.scrollToMonth(currentMonth)
     }
