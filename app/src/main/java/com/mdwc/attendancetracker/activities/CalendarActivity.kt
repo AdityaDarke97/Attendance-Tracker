@@ -19,6 +19,7 @@ import com.mdwc.attendancetracker.helpers.DayViewContainer
 import com.mdwc.attendancetracker.models.Attendance
 import com.mdwc.attendancetracker.models.CalendarViewModel
 import java.time.YearMonth
+import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
 import kotlin.sequences.forEachIndexed
@@ -44,6 +45,7 @@ class CalendarActivity : AppCompatActivity() {
 
 
         binding.heyWelcomeTv.setText(subjectName)
+
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -75,19 +77,34 @@ class CalendarActivity : AppCompatActivity() {
                     }
                 )
             }
-
         }
 
-        val currentMonth = YearMonth.now()
+        var currentMonth = YearMonth.now()
         val firstDayOfWeek = firstDayOfWeekFromLocale()
+
+        //OnClickListeners
+        binding.btnPrevMonth.setOnClickListener {
+            binding.calendarView.smoothScrollToMonth(currentMonth.minusMonths(1))
+            currentMonth=currentMonth.minusMonths(1)
+        }
+
+        binding.btnNextMonth.setOnClickListener {
+            binding.calendarView.smoothScrollToMonth(currentMonth.plusMonths(1))
+            currentMonth=currentMonth.plusMonths(1)
+        }
+
+        binding.calendarView.monthScrollListener = { month ->
+            binding.monthTv.text = month.yearMonth.format(DateTimeFormatter.ofPattern("MMMM yyyy"))
+        }
 
         binding.weekdaysRow.children.forEachIndexed { i, view ->
             (view as TextView).text = daysOfWeek(firstDayOfWeek)[i]
                 .getDisplayName(TextStyle.SHORT, Locale.getDefault())
         }
+
         binding.calendarView.setup(
-            currentMonth.minusMonths(12),
-            currentMonth.plusMonths(1),
+            currentMonth.minusMonths(100),
+            currentMonth.plusMonths(100),
             firstDayOfWeek
         )
         binding.calendarView.scrollToMonth(currentMonth)
