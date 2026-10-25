@@ -1,6 +1,7 @@
 package com.mdwc.attendancetracker.helpers
 
 import android.view.View
+import android.widget.Toast
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.view.ViewContainer
 import com.mdwc.attendancetracker.databinding.ItemCalendarDayBinding
@@ -11,7 +12,7 @@ class DayViewContainer(view: View) : ViewContainer(view) {
 
     init {
         view.setOnClickListener {
-            // TODO: if (day.position == DayPosition.MonthDate) → open the dialog for day.date
+
         }
     }
 

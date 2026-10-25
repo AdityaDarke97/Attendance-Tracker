@@ -3,6 +3,7 @@ package com.mdwc.attendancetracker.activities
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -76,6 +77,9 @@ class CalendarActivity : AppCompatActivity() {
                         else -> R.drawable.bg_absent
                     }
                 )
+                text.setOnClickListener {
+                    Toast.makeText(applicationContext,text.text,Toast.LENGTH_LONG).show()
+                }
             }
         }
 
