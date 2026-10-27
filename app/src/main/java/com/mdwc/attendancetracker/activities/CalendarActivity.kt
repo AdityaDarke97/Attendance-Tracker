@@ -65,6 +65,7 @@ class CalendarActivity : AppCompatActivity() {
 
                 if (data.position != DayPosition.MonthDate) {
                     text.visibility = View.INVISIBLE
+                    container.binding.dayRoot.setOnClickListener(null)
                     return
                 }
                 text.visibility = View.VISIBLE
