@@ -69,6 +69,10 @@ class CalendarActivity : AppCompatActivity() {
                 }
                 text.visibility = View.VISIBLE
 
+                container.binding.dayRoot.setOnClickListener {
+                    Toast.makeText(applicationContext,text.text,Toast.LENGTH_LONG).show()
+                }
+
                 val record = records[data.date.toEpochDay()]
                 text.setBackgroundResource(
                     when {
@@ -77,9 +81,6 @@ class CalendarActivity : AppCompatActivity() {
                         else -> R.drawable.bg_absent
                     }
                 )
-                text.setOnClickListener {
-                    Toast.makeText(applicationContext,text.text,Toast.LENGTH_LONG).show()
-                }
             }
         }
 
