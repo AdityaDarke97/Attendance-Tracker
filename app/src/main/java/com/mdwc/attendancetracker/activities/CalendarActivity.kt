@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.DayPosition
 import com.kizitonwose.calendar.core.daysOfWeek
@@ -16,6 +17,7 @@ import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.mdwc.attendancetracker.R
 import com.mdwc.attendancetracker.databinding.ActivityCalendarBinding
+import com.mdwc.attendancetracker.databinding.AttendanceInputLayoutBinding
 import com.mdwc.attendancetracker.helpers.DayViewContainer
 import com.mdwc.attendancetracker.models.Attendance
 import com.mdwc.attendancetracker.models.CalendarViewModel
@@ -44,9 +46,8 @@ class CalendarActivity : AppCompatActivity() {
             return
         }
 
-
-        binding.heyWelcomeTv.setText(subjectName)
-
+        //top text view
+        binding.subjectTv.setText(subjectName)
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -54,6 +55,7 @@ class CalendarActivity : AppCompatActivity() {
             insets
         }
 
+        //calendar view logic
         binding.calendarView.dayBinder = object : MonthDayBinder<DayViewContainer> {
 
             override fun create(view: View) = DayViewContainer(view)
@@ -71,7 +73,10 @@ class CalendarActivity : AppCompatActivity() {
                 text.visibility = View.VISIBLE
 
                 container.binding.dayRoot.setOnClickListener {
-                    Toast.makeText(applicationContext,text.text,Toast.LENGTH_LONG).show()
+                    val dialog = BottomSheetDialog(this@CalendarActivity)
+                    val sheetBinding = AttendanceInputLayoutBinding.inflate(layoutInflater)
+                    dialog.setContentView(sheetBinding.root)
+                    dialog.show()
                 }
 
                 val record = records[data.date.toEpochDay()]
@@ -85,21 +90,21 @@ class CalendarActivity : AppCompatActivity() {
             }
         }
 
+
         var currentMonth = YearMonth.now()
         val firstDayOfWeek = firstDayOfWeekFromLocale()
 
         //OnClickListeners
         binding.btnPrevMonth.setOnClickListener {
             binding.calendarView.smoothScrollToMonth(currentMonth.minusMonths(1))
-            currentMonth=currentMonth.minusMonths(1)
         }
 
         binding.btnNextMonth.setOnClickListener {
             binding.calendarView.smoothScrollToMonth(currentMonth.plusMonths(1))
-            currentMonth=currentMonth.plusMonths(1)
         }
 
         binding.calendarView.monthScrollListener = { month ->
+            currentMonth = month.yearMonth
             binding.monthTv.text = month.yearMonth.format(DateTimeFormatter.ofPattern("MMMM yyyy"))
         }
 
