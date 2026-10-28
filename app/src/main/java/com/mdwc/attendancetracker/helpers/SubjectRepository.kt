@@ -16,9 +16,10 @@ class SubjectRepository(private val dao: AttendanceDao) {
 
     suspend fun deleteSubject(subject: SubjectAttendance) = dao.deleteSubject(subject)
 
-    // For the calendar screen (next step)
     fun recordsForSubject(subjectId: Long): Flow<List<Attendance>> =
         dao.getRecordsForSubject(subjectId)
 
     suspend fun saveAttendance(record: Attendance) = dao.upsertAttendance(record)
+
+    suspend fun clearAttendance(subjectId: Long, date: Long) = dao.deleteAttendance(subjectId, date)
 }

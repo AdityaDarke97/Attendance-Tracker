@@ -40,4 +40,8 @@ class CalendarViewModel(
             )
         }
     }
+
+    fun clearAttendance(date: LocalDate) {
+        viewModelScope.launch { repository.clearAttendance(subjectId, date.toEpochDay()) }
+    }
 }

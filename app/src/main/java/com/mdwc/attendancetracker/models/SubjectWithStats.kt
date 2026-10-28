@@ -29,6 +29,9 @@ interface AttendanceDao {
     @Query("SELECT * FROM attendance WHERE subjectId = :subjectId")
     fun getRecordsForSubject(subjectId: Long): Flow<List<Attendance>>
 
+    @Query("DELETE FROM attendance WHERE subjectId = :subjectId AND date = :date")
+    suspend fun deleteAttendance(subjectId: Long, date: Long)
+
     @Query("""
         SELECT s.id AS id,
                s.name AS name,
