@@ -75,6 +75,9 @@ class CalendarActivity : AppCompatActivity() {
                 container.binding.dayRoot.setOnClickListener {
                     val dialog = BottomSheetDialog(this@CalendarActivity)
                     val sheetBinding = AttendanceInputLayoutBinding.inflate(layoutInflater)
+
+                    val formatter = DateTimeFormatter.ofPattern("d MMMM, yyyy", Locale.getDefault())
+                    sheetBinding.selectedDate.text = data.date.format(formatter)
                     dialog.setContentView(sheetBinding.root)
                     dialog.show()
                 }
