@@ -1,12 +1,40 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.AttendanceTracker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.AttendanceTracker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.AttendanceTracker.BottomSheetDialog</item>
     </style>
 
+    <!-- Base application theme. -->
+    <style name="Base.Theme.AttendanceTracker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.AttendanceTracker.BottomSheetDialog</item>
+    </style>
 
     <style name="BottomNavigationViewTextStyle">
         <item name="android:fontFamily">@font/poppins_light</item>
     </style>
+
+    <!-- Bottom sheet: dialog theme -> container style -> corner shape -->
+    <style name="ThemeOverlay.AttendanceTracker.BottomSheetDialog"
+        parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.AttendanceTracker.BottomSheet</item>
+    </style>
+
+    <style name="Widget.AttendanceTracker.BottomSheet"
+        parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="backgroundTint">@color/sheet_background</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.AttendanceTracker.BottomSheet</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.AttendanceTracker.BottomSheet" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">24dp</item>
+        <item name="cornerSizeTopRight">24dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <color name="sheet_background">#2F2F2F</color>
 </resources>

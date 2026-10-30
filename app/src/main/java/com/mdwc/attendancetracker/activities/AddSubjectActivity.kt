@@ -21,6 +21,7 @@ class AddSubjectActivity : AppCompatActivity() {
         mHomeViewModel = ViewModelProvider(this)[HomeViewModel::class]
         binding.submitButton.setOnClickListener {
             insertData()
+            onBackPressed()
         }
     }
 

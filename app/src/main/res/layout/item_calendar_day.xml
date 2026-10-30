@@ -19,16 +19,12 @@
         android:id="@+id/tvLectureCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="x2"
-        android:textSize="10sp"
-        android:visibility="gone"
+        android:text="2"
+        android:paddingHorizontal="2dp"
+        android:textSize="8sp"
+        android:layout_margin="2dp"
         android:textColor="@android:color/white"
         android:background="@drawable/bg_attendance_badge"
-        android:paddingStart="6dp"
-        android:paddingEnd="6dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="4dp" />
+        android:layout_gravity="bottom|end"/>
 
 </FrameLayout>

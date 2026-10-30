@@ -1,5 +1,6 @@
 package com.mdwc.attendancetracker.activities
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -30,6 +31,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
 import kotlin.sequences.forEachIndexed
+import androidx.core.view.isVisible
 
 class CalendarActivity : AppCompatActivity() {
 
@@ -84,9 +86,9 @@ class CalendarActivity : AppCompatActivity() {
                 if (data.position != DayPosition.MonthDate) {
                     text.visibility = View.INVISIBLE
                     container.binding.dayRoot.setOnClickListener(null)
+                    container.binding.tvLectureCount.visibility=View.GONE
                     return
                 }
-
                 text.visibility = View.VISIBLE
 
 
@@ -100,34 +102,40 @@ class CalendarActivity : AppCompatActivity() {
                     val attendanceRecord = records[data.date.toEpochDay()]
                     var count = attendanceRecord?.lectureCount ?: 1
 
-                    if(attendanceRecord==null){
-                        sheetBinding.lecCount.text=count.toString()
-                        sheetBinding.clearButton.visibility=View.GONE
+                    if (attendanceRecord == null) {
+                        sheetBinding.lecCount.text = count.toString()
+                        sheetBinding.clearButton.visibility = View.GONE
                         sheetBinding.toggleButtonGroup.check(R.id.present_btn)
-                    }
-                    else{
-                        sheetBinding.lecCount.text=count.toString()
-                        if(attendanceRecord.isPresent){
+                    } else {
+                        sheetBinding.lecCount.text = count.toString()
+                        if (attendanceRecord.isPresent) {
                             sheetBinding.toggleButtonGroup.check(R.id.present_btn)
-                        }
-                        else{
+                        } else {
                             sheetBinding.toggleButtonGroup.check(R.id.absent_btn)
                         }
                     }
 
                     // increment/decrement logic
                     sheetBinding.incrementLecCount.setOnClickListener {
-                        if(count>=10){
-                            Toast.makeText(this@CalendarActivity, "Lecture Count can't be greater than 10!",Toast.LENGTH_SHORT).show()
-                        }else{
+                        if (count >= 10) {
+                            Toast.makeText(
+                                this@CalendarActivity,
+                                "Lecture Count can't be greater than 10!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
                             count++
                             sheetBinding.lecCount.text = count.toString()
                         }
                     }
                     sheetBinding.decrementLecCount.setOnClickListener {
-                        if(count==1){
-                            Toast.makeText(this@CalendarActivity, "Lecture Count can't be less than 1",Toast.LENGTH_SHORT).show()
-                        }else{
+                        if (count == 1) {
+                            Toast.makeText(
+                                this@CalendarActivity,
+                                "Lecture Count can't be less than 1",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
                             count--
                             sheetBinding.lecCount.text = count.toString()
                         }
@@ -137,14 +145,42 @@ class CalendarActivity : AppCompatActivity() {
                     dialog.setContentView(sheetBinding.root)
                     dialog.show()
 
+                    sheetBinding.saveButton.setOnClickListener {
+                        if (sheetBinding.toggleButtonGroup.checkedButtonId == R.id.present_btn) {
+                            viewModel.saveAttendance(data.date, true, count)
+                            dialog.dismiss()
+                        } else {
+                            viewModel.saveAttendance(data.date, false, count)
+                            dialog.dismiss()
+                        }
+                    }
+                    sheetBinding.clearButton.setOnClickListener {
+                        viewModel.clearAttendance(data.date)
+                        dialog.dismiss()
+                    }
                 }
 
                 val record = records[data.date.toEpochDay()]
+                if(record==null){
+                    container.binding.tvLectureCount.visibility=View.GONE
+                }
+                else{
+                    container.binding.tvLectureCount.visibility=View.VISIBLE
+                    container.binding.tvLectureCount.text=record.lectureCount.toString()
+                }
                 container.binding.dayRoot.setBackgroundResource(
                     when {
-                        record == null->{R.drawable.day_border_none}
-                        record.isPresent -> { R.drawable.bg_present }
-                        else -> { R.drawable.bg_absent }
+                        record == null -> {
+                            R.drawable.day_border_none
+                        }
+
+                        record.isPresent -> {
+                            R.drawable.bg_present
+                        }
+
+                        else -> {
+                            R.drawable.bg_absent
+                        }
                     }
                 )
             }
