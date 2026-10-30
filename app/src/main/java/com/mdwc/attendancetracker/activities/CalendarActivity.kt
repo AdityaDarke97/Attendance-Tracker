@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.DayPosition
@@ -21,6 +24,7 @@ import com.mdwc.attendancetracker.databinding.AttendanceInputLayoutBinding
 import com.mdwc.attendancetracker.helpers.DayViewContainer
 import com.mdwc.attendancetracker.models.Attendance
 import com.mdwc.attendancetracker.models.CalendarViewModel
+import kotlinx.coroutines.launch
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
@@ -38,6 +42,15 @@ class CalendarActivity : AppCompatActivity() {
         binding = ActivityCalendarBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.recordsByDate.collect { newMap ->
+                    records = newMap
+                    binding.calendarView.notifyCalendarChanged()
+                }
+            }
+        }
+
         val subjectId = intent.getLongExtra("subjectId", -1L)
         val subjectName = intent.getStringExtra("subjectName")
 
@@ -48,6 +61,9 @@ class CalendarActivity : AppCompatActivity() {
 
         //top text view
         binding.subjectTv.setText(subjectName)
+        binding.back.setOnClickListener {
+            onBackPressed()
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -70,38 +86,77 @@ class CalendarActivity : AppCompatActivity() {
                     container.binding.dayRoot.setOnClickListener(null)
                     return
                 }
+
                 text.visibility = View.VISIBLE
 
+
+                //bottomsheetdialog
                 container.binding.dayRoot.setOnClickListener {
                     val dialog = BottomSheetDialog(this@CalendarActivity)
                     val sheetBinding = AttendanceInputLayoutBinding.inflate(layoutInflater)
 
                     val formatter = DateTimeFormatter.ofPattern("d MMMM, yyyy", Locale.getDefault())
+
+                    val attendanceRecord = records[data.date.toEpochDay()]
+                    var count = attendanceRecord?.lectureCount ?: 1
+
+                    if(attendanceRecord==null){
+                        sheetBinding.lecCount.text=count.toString()
+                        sheetBinding.clearButton.visibility=View.GONE
+                        sheetBinding.toggleButtonGroup.check(R.id.present_btn)
+                    }
+                    else{
+                        sheetBinding.lecCount.text=count.toString()
+                        if(attendanceRecord.isPresent){
+                            sheetBinding.toggleButtonGroup.check(R.id.present_btn)
+                        }
+                        else{
+                            sheetBinding.toggleButtonGroup.check(R.id.absent_btn)
+                        }
+                    }
+
+                    // increment/decrement logic
+                    sheetBinding.incrementLecCount.setOnClickListener {
+                        if(count>=10){
+                            Toast.makeText(this@CalendarActivity, "Lecture Count can't be greater than 10!",Toast.LENGTH_SHORT).show()
+                        }else{
+                            count++
+                            sheetBinding.lecCount.text = count.toString()
+                        }
+                    }
+                    sheetBinding.decrementLecCount.setOnClickListener {
+                        if(count==1){
+                            Toast.makeText(this@CalendarActivity, "Lecture Count can't be less than 1",Toast.LENGTH_SHORT).show()
+                        }else{
+                            count--
+                            sheetBinding.lecCount.text = count.toString()
+                        }
+                    }
+
                     sheetBinding.selectedDate.text = data.date.format(formatter)
                     dialog.setContentView(sheetBinding.root)
                     dialog.show()
+
                 }
 
                 val record = records[data.date.toEpochDay()]
-                text.setBackgroundResource(
+                container.binding.dayRoot.setBackgroundResource(
                     when {
-                        record == null -> R.drawable.day_border_none
-                        record.isPresent -> R.drawable.bg_present
-                        else -> R.drawable.bg_absent
+                        record == null->{R.drawable.day_border_none}
+                        record.isPresent -> { R.drawable.bg_present }
+                        else -> { R.drawable.bg_absent }
                     }
                 )
             }
         }
 
-
         var currentMonth = YearMonth.now()
         val firstDayOfWeek = firstDayOfWeekFromLocale()
 
-        //OnClickListeners
+        // next/prev month onclicklisteners
         binding.btnPrevMonth.setOnClickListener {
             binding.calendarView.smoothScrollToMonth(currentMonth.minusMonths(1))
         }
-
         binding.btnNextMonth.setOnClickListener {
             binding.calendarView.smoothScrollToMonth(currentMonth.plusMonths(1))
         }
