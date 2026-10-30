@@ -7,6 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
@@ -32,6 +33,7 @@ import java.time.format.TextStyle
 import java.util.Locale
 import kotlin.sequences.forEachIndexed
 import androidx.core.view.isVisible
+import java.time.LocalDate
 
 class CalendarActivity : AppCompatActivity() {
 
@@ -83,12 +85,22 @@ class CalendarActivity : AppCompatActivity() {
                 val text = container.binding.tvDayNumber
                 text.text = data.date.dayOfMonth.toString()
 
+                val isToday = data.date == LocalDate.now()
+
+                container.binding.dayRoot.foreground = if (isToday) {
+                    ContextCompat.getDrawable(this@CalendarActivity, R.drawable.bg_today)
+                } else {
+                    null
+                }
+
+
                 if (data.position != DayPosition.MonthDate) {
                     text.visibility = View.INVISIBLE
                     container.binding.dayRoot.setOnClickListener(null)
                     container.binding.tvLectureCount.visibility=View.GONE
                     return
                 }
+
                 text.visibility = View.VISIBLE
 
 
