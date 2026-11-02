@@ -53,4 +53,9 @@
     <string name="subjects">Subjects:</string>
     <string name="month_c">October 2026</string>
     <string name="subject_name">DAA</string>
+    <string name="present">Present</string>
+    <string name="absent">Absent</string>
+    <string name="decrement_button">decrement_button</string>
+    <string name="clear">Clear</string>
+    <string name="save">SAVE</string>
 </resources>

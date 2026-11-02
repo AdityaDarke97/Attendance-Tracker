@@ -1,5 +1,5 @@
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dayRoot"
     android:layout_width="match_parent"
     android:layout_margin="4dp"
@@ -9,7 +9,7 @@
         android:id="@+id/tvDayNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="21"
+        tools:text="21"
         android:fontFamily="@font/poppins_medium"
         android:textSize="16sp"
         android:layout_gravity="center" />
@@ -19,7 +19,7 @@
         android:id="@+id/tvLectureCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2"
+        tools:text="2"
         android:paddingHorizontal="2dp"
         android:textSize="8sp"
         android:layout_margin="2dp"

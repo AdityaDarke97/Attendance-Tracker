@@ -27,7 +27,9 @@ class AddSubjectActivity : AppCompatActivity() {
 
     private fun insertData() {
         val subjectName=binding.subnameEditText.text.toString().trim()
-        mHomeViewModel.addSubject(subjectName)
+        val targetInp=binding.targetEditText.text.toString().toInt()
+
+        mHomeViewModel.addSubject(subjectName, targetInp)
         Toast.makeText(this, "Added Subject", Toast.LENGTH_LONG).show()
     }
 }

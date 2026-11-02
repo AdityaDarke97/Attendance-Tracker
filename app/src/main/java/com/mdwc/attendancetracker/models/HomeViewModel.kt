@@ -18,8 +18,8 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
         repository.subjectsWithStats
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
-    fun addSubject(name: String) {
+    fun addSubject(name: String, target: Int) {
         if (name.isBlank()) return        // ignore empty names
-        viewModelScope.launch { repository.addSubject(name) }
+        viewModelScope.launch { repository.addSubject(name, target) }
     }
 }

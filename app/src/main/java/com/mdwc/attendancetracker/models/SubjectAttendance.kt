@@ -9,7 +9,8 @@ import androidx.room3.PrimaryKey
 data class SubjectAttendance(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    val name: String
+    val name: String,
+    val target: Int=75
 )
 
 @Entity(

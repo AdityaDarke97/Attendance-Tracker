@@ -11,8 +11,8 @@ class SubjectRepository(private val dao: AttendanceDao) {
     // Live list for the home screen. Re-emits when data changes.
     val subjectsWithStats: Flow<List<SubjectWithStats>> = dao.getSubjectsWithStats()
 
-    suspend fun addSubject(name: String): Long =
-        dao.insertSubject(SubjectAttendance(name = name.trim()))
+    suspend fun addSubject(name: String, target: Int): Long =
+        dao.insertSubject(SubjectAttendance(name = name.trim(), target = target))
 
     suspend fun deleteSubject(subject: SubjectAttendance) = dao.deleteSubject(subject)
 
