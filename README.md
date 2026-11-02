@@ -8,3 +8,5 @@ Also, since I admire AnkiDroid (also a part-time contributor there) and am fond 
 External Libraries/Dependencies used:
 
 Room-Used for all the Database storing done inside a SQLite DB, learning experience for me since I usually work with NoSQL based databases. The database at this point contains two tables, subjects and attendance. subjects has two columns id and name, attendance has 5 columns: id, subjectId (foreignkey relation with subject), date, isPresent and lectureCount. For now, I'm not storing the attendance inside a column and calculating it everytime. If that comes up as a better option I'll add a new column for attendancePercentage. Will update the README properly for db structure later.
+
+Kizitonwose CalendarView: Used instead of the native CalendarView, comes with a few predefined methods, scrolling across months is easier.
