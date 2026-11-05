@@ -25,6 +25,9 @@ class AddSubjectActivity : AppCompatActivity() {
             insertData()
             onBackPressed()
         }
+        binding.back.setOnClickListener {
+            onBackPressed()
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
