@@ -11,4 +11,4 @@ Room-Used for all the Database storing done inside a SQLite DB, learning experie
 
 Kizitonwose CalendarView: Used instead of the native CalendarView, comes with a few predefined methods, scrolling across months is easier.
 
-
+Mikhael Lopez's CircularImageView: Easy to set up alternative for Android's material CircularProgressIndicator, may remove later to reduce apk size.
