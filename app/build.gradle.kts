@@ -66,5 +66,6 @@ dependencies {
     implementation("androidx.room3:room3-runtime:$roomVersion")
     ksp("androidx.room3:room3-compiler:$roomVersion")
     implementation("com.kizitonwose.calendar:view:2.10.1")
+    implementation("com.mikhaellopez:circularprogressbar:3.1.0")
 
 }

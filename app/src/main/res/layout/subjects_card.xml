@@ -34,21 +34,32 @@
         app:layout_constraintStart_toEndOf="@id/idx"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/percentage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        android:id="@+id/percentage_circle"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/poppins_light"
-        tools:text="74%"
-        android:textColor="#fff"
-        android:textSize="24sp"
+        app:cpb_progress_max="100"
+        app:cpb_progressbar_width="3dp"
+        app:cpb_background_progressbar_width="3dp"
+        app:cpb_progressbar_color="#4CAF50"
+        app:cpb_background_progressbar_color="#33FFFFFF"
+        app:cpb_round_border="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-
+    <TextView
+        android:id="@+id/percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_light"
+        android:textColor="#fff"
+        android:textSize="11sp"
+        tools:text="100%"
+        app:layout_constraintTop_toTopOf="@id/percentage_circle"
+        app:layout_constraintBottom_toBottomOf="@id/percentage_circle"
+        app:layout_constraintStart_toStartOf="@id/percentage_circle"
+        app:layout_constraintEnd_toEndOf="@id/percentage_circle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

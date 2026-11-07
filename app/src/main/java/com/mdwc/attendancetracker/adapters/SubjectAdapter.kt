@@ -1,10 +1,15 @@
 package com.mdwc.attendancetracker.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.Visibility
+import com.mdwc.attendancetracker.R
 import com.mdwc.attendancetracker.databinding.SubjectsCardBinding
 import com.mdwc.attendancetracker.models.SubjectWithStats
 import kotlin.math.roundToInt
@@ -23,9 +28,25 @@ class SubjectAdapter(
         with(holder.binding) {
             idx.text = (position + 1).toString()
             subName.text = item.name
-            percentage.text =
-                if (item.total == 0) "--"
-                else "${(item.attended * 100f / item.total).roundToInt()}%"
+
+            val pct = if (item.total == 0) null else item.attended * 100f / item.total
+
+            if (pct == null) {
+                percentage.text = "--"
+                percentageCircle.visibility = View.INVISIBLE
+            } else {
+                if (pct >= item.target) {
+                    percentageCircle.progressBarColor=Color.Green.toArgb()
+                }
+                else{
+                    percentageCircle.progressBarColor=Color.Red.toArgb()
+                }
+                percentage.text = "${pct.roundToInt()}%"
+                percentageCircle.visibility = View.VISIBLE
+                percentageCircle.setProgressWithAnimation(pct,500)
+            }
+
+
             root.setOnClickListener { onClick(item) }
         }
     }
