@@ -97,7 +97,7 @@ class CalendarActivity : AppCompatActivity() {
                 if (data.position != DayPosition.MonthDate) {
                     text.visibility = View.INVISIBLE
                     container.binding.dayRoot.setOnClickListener(null)
-                    container.binding.tvLectureCount.visibility=View.GONE
+                    container.binding.tvLectureCount.visibility = View.GONE
                     return
                 }
 
@@ -173,12 +173,11 @@ class CalendarActivity : AppCompatActivity() {
                 }
 
                 val record = records[data.date.toEpochDay()]
-                if(record==null){
-                    container.binding.tvLectureCount.visibility=View.GONE
-                }
-                else{
-                    container.binding.tvLectureCount.visibility=View.VISIBLE
-                    container.binding.tvLectureCount.text=record.lectureCount.toString()
+                if (record == null) {
+                    container.binding.tvLectureCount.visibility = View.GONE
+                } else {
+                    container.binding.tvLectureCount.visibility = View.VISIBLE
+                    container.binding.tvLectureCount.text = record.lectureCount.toString()
                 }
                 container.binding.dayRoot.setBackgroundResource(
                     when {
@@ -215,15 +214,12 @@ class CalendarActivity : AppCompatActivity() {
         }
 
         binding.weekdaysRow.children.forEachIndexed { i, view ->
-            (view as TextView).text = daysOfWeek(firstDayOfWeek)[i]
-                .getDisplayName(TextStyle.SHORT, Locale.getDefault())
+            (view as TextView).text =
+                daysOfWeek(firstDayOfWeek)[i].getDisplayName(TextStyle.SHORT, Locale.getDefault())
         }
 
         binding.calendarView.setup(
-            currentMonth.minusMonths(100),
-            currentMonth.plusMonths(100),
-            firstDayOfWeek
-        )
+            currentMonth.minusMonths(100), currentMonth.plusMonths(100), firstDayOfWeek)
         binding.calendarView.scrollToMonth(currentMonth)
     }
 }

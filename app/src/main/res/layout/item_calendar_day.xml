@@ -12,6 +12,7 @@
         tools:text="21"
         android:fontFamily="@font/poppins_medium"
         android:textSize="16sp"
+        android:textColor="@color/textColor"
         android:layout_gravity="center" />
 
     <TextView
@@ -23,7 +24,7 @@
         android:paddingHorizontal="2dp"
         android:textSize="8sp"
         android:layout_margin="2dp"
-        android:textColor="@android:color/white"
+        android:textColor="#fff"
         android:background="@drawable/bg_attendance_badge"
         android:layout_gravity="bottom|end"/>
 
