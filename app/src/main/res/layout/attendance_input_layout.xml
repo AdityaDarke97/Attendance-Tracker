@@ -29,11 +29,14 @@
         app:layout_constraintTop_toBottomOf="@id/drag_handle"
         tools:text="28th October, 2026" />
 
+    <!-- Full width, two equal halves -->
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/toggle_button_group"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/selected_date"
         app:selectionRequired="true"
@@ -41,77 +44,109 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/present_btn"
+            app:cornerRadius="12dp"
             style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/present"
-            android:textColor="@color/textColor" />
+            android:textColor="@color/textColor"
+            app:backgroundTint="@color/toggle_present_bg"
+            app:strokeWidth="2dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/absent_btn"
+            app:cornerRadius="12dp"
             style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/absent"
-            android:textColor="@color/textColor" />
+            android:textColor="@color/textColor"
+            app:backgroundTint="@color/toggle_absent_bg"
+            app:strokeWidth="2dp" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <ImageView
-        android:id="@+id/decrement_lec_count"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/decrement_button"
-        android:src="@drawable/remove"
-        app:layout_constraintBottom_toBottomOf="@id/toggle_button_group"
-        app:layout_constraintLeft_toRightOf="@id/toggle_button_group"
-        app:layout_constraintTop_toBottomOf="@id/selected_date" />
-
+    <!-- New row: label on the left, stepper pill on the right -->
     <TextView
-        android:id="@+id/lec_count"
+        android:id="@+id/lectures_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
         android:fontFamily="@font/poppins_medium"
+        android:text="@string/lectures"
         android:textColor="@color/textColor"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toBottomOf="@id/toggle_button_group"
-        app:layout_constraintLeft_toRightOf="@id/decrement_lec_count"
-        app:layout_constraintTop_toBottomOf="@id/selected_date"
-        tools:text="1" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/stepper"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/stepper" />
 
-    <ImageView
-        android:id="@+id/increment_lec_count"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="8dp"
+    <LinearLayout
+        android:id="@+id/stepper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:src="@drawable/add"
-        app:layout_constraintBottom_toBottomOf="@id/toggle_button_group"
-        app:layout_constraintLeft_toRightOf="@id/lec_count"
-        app:layout_constraintTop_toBottomOf="@id/selected_date" />
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/stepper_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toggle_button_group">
+
+        <ImageView
+            android:id="@+id/decrement_lec_count"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/decrement_button"
+            android:focusable="true"
+            android:padding="12dp"
+            android:src="@drawable/remove" />
+
+        <TextView
+            android:id="@+id/lec_count"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:textColor="@color/textColor"
+            android:textSize="24sp"
+            tools:text="1" />
+
+        <ImageView
+            android:id="@+id/increment_lec_count"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/increment_button"
+            android:focusable="true"
+            android:padding="12dp"
+            android:src="@drawable/add" />
+
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/clear_button"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@null"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/clear"
         android:textColor="#F44336"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toggle_button_group" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stepper" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/save_button"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
@@ -121,6 +156,7 @@
         android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/clear_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

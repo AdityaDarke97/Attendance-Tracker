@@ -1,0 +1,5 @@
+<!-- res/color/toggle_present_bg.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="#8FF44336" />
+    <item android:color="#26F44336" />
+</selector>
