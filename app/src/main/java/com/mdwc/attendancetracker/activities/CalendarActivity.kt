@@ -64,7 +64,7 @@ class CalendarActivity : AppCompatActivity() {
         //top text view
         binding.subjectTv.setText(subjectName)
         binding.back.setOnClickListener {
-            onBackPressed()
+            finish()
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
@@ -112,17 +112,31 @@ class CalendarActivity : AppCompatActivity() {
                     val attendanceRecord = records[data.date.toEpochDay()]
                     var count = attendanceRecord?.lectureCount ?: 1
 
-                    if (attendanceRecord == null) {
-                        sheetBinding.lecCount.text = count.toString()
-                        sheetBinding.clearButton.visibility = View.GONE
-                        sheetBinding.toggleButtonGroup.check(R.id.present_btn)
-                    } else {
-                        sheetBinding.lecCount.text = count.toString()
-                        if (attendanceRecord.isPresent) {
-                            sheetBinding.toggleButtonGroup.check(R.id.present_btn)
-                        } else {
-                            sheetBinding.toggleButtonGroup.check(R.id.absent_btn)
+                    sheetBinding.toggleButtonGroup.addOnButtonCheckedListener { _, i, bool ->
+                        if(bool){
+                            if (i == R.id.present_btn) {
+                                sheetBinding.absentBtn.setTextColor(ContextCompat.getColor(this@CalendarActivity,R.color.muted_gray))
+                                sheetBinding.presentBtn.setTextColor(ContextCompat.getColor(this@CalendarActivity,R.color.WHITE))
+                                sheetBinding.lecturesLabel.text=getString(R.string.lectures)
+                            } else {
+                                sheetBinding.presentBtn.setTextColor(ContextCompat.getColor(this@CalendarActivity,R.color.muted_gray))
+                                sheetBinding.absentBtn.setTextColor(ContextCompat.getColor(this@CalendarActivity,R.color.WHITE))
+                                sheetBinding.lecturesLabel.text= getString(R.string.lectures_missed)
+                            }
                         }
+                    }
+
+
+                    sheetBinding.lecCount.text = count.toString()
+                    sheetBinding.toggleButtonGroup.check(
+                        when (attendanceRecord?.isPresent) {
+                            false -> R.id.absent_btn
+                            else -> R.id.present_btn
+                        }
+                    )
+
+                    if (attendanceRecord == null) {
+                        sheetBinding.clearButton.visibility = View.GONE
                     }
 
                     // increment/decrement logic
@@ -155,14 +169,10 @@ class CalendarActivity : AppCompatActivity() {
                     dialog.setContentView(sheetBinding.root)
                     dialog.show()
 
+
                     sheetBinding.saveButton.setOnClickListener {
-                        if (sheetBinding.toggleButtonGroup.checkedButtonId == R.id.present_btn) {
-                            viewModel.saveAttendance(data.date, true, count)
+                            viewModel.saveAttendance(data.date, sheetBinding.toggleButtonGroup.checkedButtonId==R.id.present_btn, count)
                             dialog.dismiss()
-                        } else {
-                            viewModel.saveAttendance(data.date, false, count)
-                            dialog.dismiss()
-                        }
                     }
                     sheetBinding.clearButton.setOnClickListener {
                         viewModel.clearAttendance(data.date)
@@ -192,13 +202,29 @@ class CalendarActivity : AppCompatActivity() {
                         }
                     }
                 )
+
+                container.binding.tvLectureCount.setBackgroundResource(
+                    when {
+                        record == null -> {
+                            R.drawable.day_border_none
+                        }
+
+                        record.isPresent -> {
+                            R.drawable.bg_attendance_badge
+                        }
+
+                        else -> {
+                            R.drawable.bg_attendance_badge_absent
+                        }
+                    }
+                )
             }
         }
 
         var currentMonth = YearMonth.now()
         val firstDayOfWeek = firstDayOfWeekFromLocale()
 
-        // next/prev month onclicklisteners
+        // next/prev month onclick listeners
         binding.btnPrevMonth.setOnClickListener {
             binding.calendarView.smoothScrollToMonth(currentMonth.minusMonths(1))
         }

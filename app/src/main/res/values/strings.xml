@@ -58,6 +58,7 @@
     <string name="decrement_button">decrement_button</string>
     <string name="clear">Clear</string>
     <string name="save">SAVE</string>
-    <string name="lectures">Lectures</string>
+    <string name="lectures">Lectures Attended</string>
     <string name="increment_button">Increase lectures</string>
+    <string name="lectures_missed">Lectures Missed</string>
 </resources>

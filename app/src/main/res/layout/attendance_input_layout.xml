@@ -51,9 +51,8 @@
             android:layout_weight="1"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/present"
-            android:textColor="@color/textColor"
             app:backgroundTint="@color/toggle_present_bg"
-            app:strokeWidth="2dp" />
+            app:strokeWidth="0dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/absent_btn"
@@ -64,9 +63,8 @@
             android:layout_weight="1"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/absent"
-            android:textColor="@color/textColor"
             app:backgroundTint="@color/toggle_absent_bg"
-            app:strokeWidth="2dp" />
+            app:strokeWidth="0dp" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -154,6 +152,7 @@
         android:background="@drawable/save_bg"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/save"
+        android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -8,7 +8,6 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.AttendanceTracker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.AttendanceTracker.BottomSheetDialog</item>
     </style>
 
@@ -36,5 +35,5 @@
         <item name="cornerSizeBottomRight">0dp</item>
     </style>
 
-    <color name="sheet_background">#2F2F2F</color>
+    <color name="sheet_background">#fff</color>
 </resources>

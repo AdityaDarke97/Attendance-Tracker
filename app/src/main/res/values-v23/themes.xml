@@ -36,5 +36,5 @@
         <item name="cornerSizeBottomRight">0dp</item>
     </style>
 
-    <color name="sheet_background">#2F2F2F</color>
+    <color name="sheet_background">#fff</color>
 </resources>

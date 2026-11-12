@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="textColor">#000</color>
-    <color name="bgTopBarColor">#A87bf4</color>
+    <color name="bgTopBarColor">#4C2882</color>
+    <color name="saveBtnColor">#7C4DFF</color>
+    <color name="lightpurple">#A87bf4</color>
+    <color name="muted_gray">#8E8E93</color>
+    <color name="WHITE">#FFF</color>
 </resources>
