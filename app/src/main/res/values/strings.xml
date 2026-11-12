@@ -61,4 +61,5 @@
     <string name="lectures">Lectures Attended</string>
     <string name="increment_button">Increase lectures</string>
     <string name="lectures_missed">Lectures Missed</string>
+    <string name="submit">Submit</string>
 </resources>

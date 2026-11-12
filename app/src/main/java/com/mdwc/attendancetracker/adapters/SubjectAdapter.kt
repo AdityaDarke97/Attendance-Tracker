@@ -26,7 +26,6 @@ class SubjectAdapter(
     override fun onBindViewHolder(holder: VH, position: Int) {
         val item = getItem(position)
         with(holder.binding) {
-            idx.text = (position + 1).toString()
             subName.text = item.name
 
             val pct = if (item.total == 0) null else item.attended * 100f / item.total
