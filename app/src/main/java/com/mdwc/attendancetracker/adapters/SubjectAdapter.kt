@@ -32,8 +32,7 @@ class SubjectAdapter(
             val pct = if (item.total == 0) null else item.attended * 100f / item.total
 
             if (pct == null) {
-                percentage.text = "--"
-                percentageCircle.visibility = View.INVISIBLE
+                percentage.text = "0%"
             } else {
                 if (pct >= item.target) {
                     percentageCircle.progressBarColor=Color.Green.toArgb()
