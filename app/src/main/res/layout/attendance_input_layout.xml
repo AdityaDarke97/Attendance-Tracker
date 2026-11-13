@@ -70,20 +70,6 @@
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <!-- New row: label on the left, stepper pill on the right -->
-    <TextView
-        android:id="@+id/lectures_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/poppins_medium"
-        android:text="@string/lectures"
-        android:textColor="@color/textColor"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/stepper"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/stepper" />
-
     <LinearLayout
         android:id="@+id/stepper"
         android:layout_width="wrap_content"
@@ -130,6 +116,20 @@
             android:src="@drawable/add" />
 
     </LinearLayout>
+
+    <!-- New row: label on the left, stepper pill on the right -->
+    <TextView
+        android:id="@+id/lectures_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/lectures"
+        android:textColor="@color/textColor"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/stepper"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/stepper" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/clear_button"

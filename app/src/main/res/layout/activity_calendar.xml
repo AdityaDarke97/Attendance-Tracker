@@ -81,6 +81,7 @@
         <TextView
             android:id="@+id/month_tv"
             android:layout_width="wrap_content"
+            android:includeFontPadding="false"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
             android:textColor="@color/textColor"
