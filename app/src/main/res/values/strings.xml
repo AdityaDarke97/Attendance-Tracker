@@ -62,4 +62,6 @@
     <string name="increment_button">Increase lectures</string>
     <string name="lectures_missed">Lectures Missed</string>
     <string name="submit">Submit</string>
+    <string name="jump_prev">Jump to Previous Month</string>
+    <string name="jump_next">Jump to Next Month</string>
 </resources>

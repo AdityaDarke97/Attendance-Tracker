@@ -9,4 +9,5 @@
     <color name="green_present">#8F4CAF50</color>
     <color name="red_absent">#8FF44336</color>
     <color name="unselected_bg">#2B2B2E</color>
+    <color name="grey_drag_handle">#777777</color>
 </resources>

@@ -45,6 +45,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/present_btn"
             app:cornerRadius="12dp"
+            android:textColor="@color/toggle_text"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -57,6 +58,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/absent_btn"
             app:cornerRadius="12dp"
+            android:textColor="@color/toggle_text"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

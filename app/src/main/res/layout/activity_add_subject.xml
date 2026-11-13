@@ -87,6 +87,7 @@
             android:id="@+id/targetEditText"
             android:fontFamily="@font/poppins_medium"
             android:inputType="number"
+            android:text="75"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

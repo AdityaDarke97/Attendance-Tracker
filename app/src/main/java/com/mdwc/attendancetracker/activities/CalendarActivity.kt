@@ -37,6 +37,7 @@ class CalendarActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCalendarBinding
     private var records: Map<Long, Attendance> = emptyMap()
+    private var currentMonth: YearMonth = YearMonth.now()
     private val viewModel: CalendarViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,9 +50,7 @@ class CalendarActivity : AppCompatActivity() {
         val subjectName = intent.getStringExtra("subjectName")
 
         //check invalid id
-        if (subjectId == -1L) {
-            finish(); return
-        }
+        if (subjectId == -1L) { finish(); return }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -105,23 +104,11 @@ class CalendarActivity : AppCompatActivity() {
             }
         }
 
-        var currentMonth = YearMonth.now()
         val firstDayOfWeek = firstDayOfWeekFromLocale()
 
-        // next/prev month onclick listeners
-        binding.btnPrevMonth.setOnClickListener {
-            binding.calendarView.smoothScrollToMonth(currentMonth.minusMonths(1))
-        }
-        binding.btnNextMonth.setOnClickListener {
-            binding.calendarView.smoothScrollToMonth(currentMonth.plusMonths(1))
-        }
-
-        binding.calendarView.monthScrollListener = { month ->
-            currentMonth = month.yearMonth
-            binding.monthTv.text = month.yearMonth.format(DateTimeFormatter.ofPattern("MMMM yyyy"))
-        }
-
         setupWeekdayRow(firstDayOfWeek)
+
+        setupMonthNavigation()
 
         binding.calendarView.setup(
             currentMonth.minusMonths(100), currentMonth.plusMonths(100), firstDayOfWeek
@@ -138,6 +125,7 @@ class CalendarActivity : AppCompatActivity() {
         }
     }
 
+    // TODO: block double-open
     private fun showAttendanceSheet(date: LocalDate) {
         val dialog = BottomSheetDialog(this@CalendarActivity)
         val sheetBinding = AttendanceInputLayoutBinding.inflate(layoutInflater)
@@ -147,43 +135,16 @@ class CalendarActivity : AppCompatActivity() {
         val attendanceRecord = records[date.toEpochDay()]
         var count = attendanceRecord?.lectureCount ?: 1
 
-        sheetBinding.toggleButtonGroup.addOnButtonCheckedListener { _, i, bool ->
-            if (bool) {
-                if (i == R.id.present_btn) {
-                    sheetBinding.absentBtn.setTextColor(
-                        ContextCompat.getColor(
-                            this@CalendarActivity,
-                            R.color.muted_gray
-                        )
-                    )
-                    sheetBinding.presentBtn.setTextColor(
-                        ContextCompat.getColor(
-                            this@CalendarActivity,
-                            R.color.WHITE
-                        )
-                    )
-                    sheetBinding.lecturesLabel.text = getString(R.string.lectures)
-                } else {
-                    sheetBinding.presentBtn.setTextColor(
-                        ContextCompat.getColor(
-                            this@CalendarActivity,
-                            R.color.muted_gray
-                        )
-                    )
-                    sheetBinding.absentBtn.setTextColor(
-                        ContextCompat.getColor(
-                            this@CalendarActivity,
-                            R.color.WHITE
-                        )
-                    )
-                    sheetBinding.lecturesLabel.text =
-                        getString(R.string.lectures_missed)
-                }
+        sheetBinding.lecCount.text = count.toString()
+
+        sheetBinding.toggleButtonGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                sheetBinding.lecturesLabel.text = getString(
+                    if (checkedId == R.id.present_btn) R.string.lectures else R.string.lectures_missed
+                )
             }
         }
 
-
-        sheetBinding.lecCount.text = count.toString()
         sheetBinding.toggleButtonGroup.check(
             when (attendanceRecord?.isPresent) {
                 false -> R.id.absent_btn
@@ -298,6 +259,22 @@ class CalendarActivity : AppCompatActivity() {
                     binding.calendarView.notifyCalendarChanged()
                 }
             }
+        }
+    }
+
+    private fun setupMonthNavigation(){
+
+        // next/prev month onclick listeners
+        binding.btnPrevMonth.setOnClickListener {
+            binding.calendarView.smoothScrollToMonth(currentMonth.minusMonths(1))
+        }
+        binding.btnNextMonth.setOnClickListener {
+            binding.calendarView.smoothScrollToMonth(currentMonth.plusMonths(1))
+        }
+
+        binding.calendarView.monthScrollListener = { month ->
+            currentMonth = month.yearMonth
+            binding.monthTv.text = month.yearMonth.format(DateTimeFormatter.ofPattern("MMMM yyyy"))
         }
     }
 }

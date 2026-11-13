@@ -34,6 +34,7 @@ class SubjectAdapter(
 
             if (pct == null) {
                 percentage.text = "0%"
+                percentageCircle.progress=0F
             } else {
                 if (pct >= item.target) {
                     percentageCircle.progressBarColor= getColor(holder.itemView.context,R.color.green_present)
