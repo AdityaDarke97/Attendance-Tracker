@@ -6,4 +6,7 @@
     <color name="lightpurple">#A87bf4</color>
     <color name="muted_gray">#8E8E93</color>
     <color name="WHITE">#FFF</color>
+    <color name="green_present">#8F4CAF50</color>
+    <color name="red_absent">#8FF44336</color>
+    <color name="unselected_bg">#2B2B2E</color>
 </resources>

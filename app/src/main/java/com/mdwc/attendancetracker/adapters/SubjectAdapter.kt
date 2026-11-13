@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -34,10 +36,10 @@ class SubjectAdapter(
                 percentage.text = "0%"
             } else {
                 if (pct >= item.target) {
-                    percentageCircle.progressBarColor=Color.Green.toArgb()
+                    percentageCircle.progressBarColor= getColor(holder.itemView.context,R.color.green_present)
                 }
                 else{
-                    percentageCircle.progressBarColor=Color.Red.toArgb()
+                    percentageCircle.progressBarColor= getColor(holder.itemView.context,R.color.red_absent)
                 }
                 percentage.text = "${pct.roundToInt()}%"
                 percentageCircle.visibility = View.VISIBLE
