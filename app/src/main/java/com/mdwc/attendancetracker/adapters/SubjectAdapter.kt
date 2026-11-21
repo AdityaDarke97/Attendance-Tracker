@@ -2,19 +2,18 @@ package com.mdwc.attendancetracker.adapters
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnLongClickListener
 import android.view.ViewGroup
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
-import androidx.core.content.ContextCompat
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.Visibility
 import com.mdwc.attendancetracker.R
 import com.mdwc.attendancetracker.databinding.SubjectsCardBinding
 import com.mdwc.attendancetracker.models.SubjectWithStats
 import kotlin.math.roundToInt
+
 
 class SubjectAdapter(
     private val onClick: (SubjectWithStats) -> Unit
@@ -49,6 +48,14 @@ class SubjectAdapter(
 
 
             root.setOnClickListener { onClick(item) }
+            root.setOnLongClickListener { v ->
+                Toast.makeText(
+                    v.context,
+                    "Long pressed on "+subName.text,
+                    Toast.LENGTH_SHORT
+                ).show()
+                true
+            }
         }
     }
 

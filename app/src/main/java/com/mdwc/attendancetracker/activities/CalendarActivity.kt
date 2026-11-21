@@ -52,12 +52,6 @@ class CalendarActivity : AppCompatActivity() {
         //check invalid id
         if (subjectId == -1L) { finish(); return }
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
         //call main functions
         setupHeader(subjectName)
         observeRecords()

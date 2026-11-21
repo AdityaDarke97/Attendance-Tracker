@@ -49,7 +49,7 @@
     <string name="analytics">Analytics</string>
     <string name="updates">Updates</string>
     <string name="profile">Profile</string>
-    <string name="welcome_string">Hey, Aditya</string>
+    <string name="welcome_string">Hey, user</string>
     <string name="subjects">Subjects:</string>
     <string name="month_c">October 2026</string>
     <string name="subject_name">DAA</string>
@@ -64,4 +64,5 @@
     <string name="submit">Submit</string>
     <string name="jump_prev">Jump to Previous Month</string>
     <string name="jump_next">Jump to Next Month</string>
+    <string name="create_subject">Create Subject</string>
 </resources>

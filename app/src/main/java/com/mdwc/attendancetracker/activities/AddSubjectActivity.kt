@@ -21,26 +21,25 @@ class AddSubjectActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         mHomeViewModel = ViewModelProvider(this)[HomeViewModel::class]
+
         binding.submitButton.setOnClickListener {
             insertData()
-            onBackPressed()
         }
         binding.back.setOnClickListener {
-            onBackPressed()
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+            finish()
         }
     }
 
     private fun insertData() {
-        val subjectName=binding.subnameEditText.text.toString().trim()
-        val targetInp=binding.targetEditText.text.toString().toInt()
+        val subjectName = binding.subnameEditText.text.toString().trim()
+        val targetInp: Int? = binding.targetEditText.text.toString().toIntOrNull()
 
-        mHomeViewModel.addSubject(subjectName, targetInp)
-        Toast.makeText(this, "Added Subject", Toast.LENGTH_LONG).show()
+        if (subjectName.isEmpty() || targetInp == null) {
+            Toast.makeText(this, "Both fields are required!", Toast.LENGTH_LONG).show()
+        } else {
+            mHomeViewModel.addSubject(subjectName, targetInp)
+            Toast.makeText(this, "Added Subject", Toast.LENGTH_LONG).show()
+            finish()
+        }
     }
 }

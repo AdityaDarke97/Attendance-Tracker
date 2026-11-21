@@ -29,16 +29,7 @@ class LandingActivity : AppCompatActivity() {
         binding.addSubjectFAB.setOnClickListener {
             val intent = Intent(this, AddSubjectActivity::class.java)
             startActivity(intent)
-
         }
-
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
 
         setCurrentFragment(HomeFragment())
 
